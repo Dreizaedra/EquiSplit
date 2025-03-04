@@ -43,6 +43,8 @@ services:
           path: ./api/config
         - action: rebuild
           path: ./api/.env
+        - action: rebuild
+          path: ./api/docker
     networks:
       - private
       - public
