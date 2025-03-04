@@ -2,18 +2,12 @@
 services:
 ###> doctrine/doctrine-bundle ###
   database:
-    image: mariadb:10.11-jammy
+    image: mariadb:10.11.11-jammy
     restart: unless-stopped
-    environment:
-      MARIADB_DATABASE: app
-      # You should definitely change the password in production
-      MARIADB_ROOT_PASSWORD: sup3rs3cr3t
-      MARIADB_PASSWORD: s3cr3t
-      MARIADB_USER: apiuser
+    env_file:
+      - .env
     volumes:
       - equisplit_mdb_data:/var/lib/mysql
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
 
 volumes:
