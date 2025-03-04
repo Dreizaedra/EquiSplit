@@ -34,9 +34,24 @@ qui sera alors disponible sur le port 3306 de votre localhost.
 docker compose up
 ```
 
-Finalement, il faut exécuter les migrations de Symfony.
+Il faut ensuite exécuter les migrations de Symfony et charger les données de test.
 
 ```bash
 php bin/console doctrine:database:create --if-not-exists
 php bin/console doctrine:migrations:migrate --no-interaction
+php bin/console doctrine:fixtures:load --quiet --purge-with-truncate
 ```
+
+Puis générer les clefs publiques et privées relatives à l'API.
+
+```bash
+php bin/console lexik:jwt:generate-keypair
+```
+
+Et finalement lancer le serveur.
+
+```bash
+symfony server:start --no-tls
+```
+
+Vous pouvez maintenant accéder à la documentation de l'API via l'url http://localhost:8000/api
