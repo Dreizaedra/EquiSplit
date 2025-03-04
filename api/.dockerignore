@@ -1,0 +1,16 @@
+# Folders
+/.git
+/.github
+/vendor
+/.venv
+/public/bundles
+/config/jwt/*
+/var
+/.vscode
+/.idea
+
+# Files
+/.env.dev
+/.gitignore
+/Dockerfile
+/*.md
