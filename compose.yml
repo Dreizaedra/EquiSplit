@@ -1,0 +1,58 @@
+services:
+  database:
+    image: mariadb:10.11.11-jammy
+    restart: unless-stopped
+    env_file:
+      - ./api/.env
+    volumes:
+      - equisplit_mdb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "--user=root", "--password=${MARIADB_ROOT_PASSWORD}", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    networks:
+      - private
+
+  api:
+    build:
+      context: ./api
+      dockerfile: dev.Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      DB_HOST: database
+    depends_on:
+      database:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./api/src
+          target: /var/www/html/src
+        - action: sync+restart
+          path: ./api/migrations
+          target: /var/www/html/migrations
+        - action: rebuild
+          path: ./api/composer.lock
+        - action: rebuild
+          path: ./api/Dockerfile
+        - action: rebuild
+          path: ./api/config
+        - action: rebuild
+          path: ./api/.env
+        - action: rebuild
+          path: ./api/docker
+    networks:
+      - private
+      - public
+    entrypoint: ["/bin/sh", "./docker/entrypoint.sh"]
+
+volumes:
+  equisplit_mdb_data:
+
+networks:
+  private:
+  public:

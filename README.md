@@ -18,7 +18,16 @@ pre-commit install --hook-type commit-msg
 pre-commit install --hook-type pre-push
 ```
 
-## Back-end
+## Docker (WIP)
+
+```bash
+docker compose up --watch
+```
+
+Vous pouvez maintenant accéder à la documentation de l'API via l'url http://localhost:8000/api
+et PhpMyAdmin sur http://localhost:8080
+
+## Back-end only
 
 Il faut d'abord naviguer dans le dossier `api` puis installer les dépendances.
 
@@ -39,7 +48,7 @@ Il faut ensuite exécuter les migrations de Symfony et charger les données de t
 ```bash
 php bin/console doctrine:database:create --if-not-exists
 php bin/console doctrine:migrations:migrate --no-interaction
-php bin/console doctrine:fixtures:load --quiet --purge-with-truncate
+php bin/console doctrine:fixtures:load --no-interaction
 ```
 
 Puis générer les clefs publiques et privées relatives à l'API.
