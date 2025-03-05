@@ -1,8 +1,5 @@
 # Folders
-/.git
-/.github
 /vendor
-/.venv
 /public/bundles
 /config/jwt/*
 /var
@@ -12,5 +9,5 @@
 # Files
 /.env.dev
 /.gitignore
-/Dockerfile
+/*.Dockerfile
 /*.md

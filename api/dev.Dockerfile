@@ -30,3 +30,6 @@ RUN php bin/console cache:clear && \
 
 # Move nginx config to the correct folder
 RUN mv /var/www/html/docker/nginx.conf /etc/nginx/nginx.conf
+
+# Using personnalised entrypoint
+ENTRYPOINT ["/bin/sh", "/var/www/html/docker/entrypoint.sh"]
