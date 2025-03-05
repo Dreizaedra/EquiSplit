@@ -24,8 +24,9 @@ pre-commit install --hook-type pre-push
 docker compose up --watch
 ```
 
-Vous pouvez maintenant accéder à la documentation de l'API via l'url http://localhost:8000/api
-et PhpMyAdmin sur http://localhost:8080
+- Documentation de l'API - http://localhost:8000/api
+- Application - http://localhost:5173
+- PhpMyAdmin (root:root) - http://localhost:8080
 
 ## Back-end only
 

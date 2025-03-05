@@ -38,7 +38,7 @@ services:
         - action: rebuild
           path: ./api/composer.lock
         - action: rebuild
-          path: ./api/Dockerfile
+          path: ./api/dev.Dockerfile
         - action: rebuild
           path: ./api/config
         - action: rebuild
@@ -48,7 +48,31 @@ services:
     networks:
       - private
       - public
-    entrypoint: ["/bin/sh", "./docker/entrypoint.sh"]
+
+  app:
+    build:
+      context: ./app
+      dockerfile: dev.Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+    develop:
+      watch:
+        - action: sync
+          path: ./app/src
+          target: /app/src
+        - action: rebuild
+          path: ./app/package-lock.json
+        - action: rebuild
+          path: ./app/dev.Dockerfile
+        - action: rebuild
+          path: ./app/vite.config.js
+        - action: rebuild
+          path: ./app/tailwind.config.js
+    networks:
+      - public
 
 volumes:
   equisplit_mdb_data:
