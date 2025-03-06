@@ -28,6 +28,9 @@ RUN php bin/console cache:clear && \
     php bin/console assets:install public/ && \
     rm -rf /usr/bin/composer
 
+# Set permissions for symfony cache and logs folder
+RUN chown -R www-data:www-data /var/www/html/var
+
 # Move nginx config to the correct folder
 RUN mv /var/www/html/docker/nginx.conf /etc/nginx/nginx.conf
 
