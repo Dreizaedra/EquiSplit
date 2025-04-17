@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Enum\UserStatus;
 use App\Repository\ExpenseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -147,6 +148,11 @@ class Expense
         }
 
         return $this;
+    }
+
+    public function getUserCount(): int
+    {
+        return $this->userExpenses->filter(fn (UserExpense $userExpense) => $userExpense->getStatus() === UserStatus::ACCEPTED)->count();
     }
 
     /**
