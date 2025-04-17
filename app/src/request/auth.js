@@ -22,7 +22,6 @@ function  getAuthToken() {
         })
         .catch((error) => console.error(error));
 }
-
 getAuthToken()
 
 
