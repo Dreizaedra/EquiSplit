@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
         new Patch(),
         new Delete(),
         new Get(
-            uriTemplate: '/travels/{id}/balance',
+            uriTemplate: '/travel/{id}/balance',
             controller: TravelApiController::class,
             name: 'app_travel_balance',
         ),
