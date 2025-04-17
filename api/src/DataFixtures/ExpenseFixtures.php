@@ -15,12 +15,14 @@ class ExpenseFixtures extends Fixture implements DependentFixtureInterface
         $expense1 = new Expense();
         $expense1->setName('Test expense 1')
             ->setTravel($this->getReference('travel', Travel::class))
-            ->setPrice(10000);
+            ->setPrice(10000)
+        ;
 
         $expense2 = new Expense();
         $expense2->setName('Test expense 2')
             ->setTravel($this->getReference('travel', Travel::class))
-            ->setPrice(20000);
+            ->setPrice(20000)
+        ;
 
         $manager->persist($expense1);
         $manager->persist($expense2);

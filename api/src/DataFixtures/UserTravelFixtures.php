@@ -17,12 +17,14 @@ class UserTravelFixtures extends Fixture implements DependentFixtureInterface
         $userTravel1 = new UserTravel();
         $userTravel1->setStatus(UserStatus::ACCEPTED)
             ->setUser($this->getReference('user1', User::class))
-            ->setTravel($this->getReference('travel', Travel::class));
+            ->setTravel($this->getReference('travel', Travel::class))
+        ;
 
         $userTravel2 = new UserTravel();
         $userTravel2->setStatus(UserStatus::ACCEPTED)
             ->setUser($this->getReference('user2', User::class))
-            ->setTravel($this->getReference('travel', Travel::class));
+            ->setTravel($this->getReference('travel', Travel::class))
+        ;
 
         $manager->persist($userTravel1);
         $manager->persist($userTravel2);
