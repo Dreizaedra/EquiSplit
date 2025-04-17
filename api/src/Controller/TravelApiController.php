@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Travel;
+use App\Entity\User;
 use App\Entity\UserExpense;
 use App\Entity\UserTravel;
 use App\Repository\UserExpenseRepository;
@@ -20,8 +21,7 @@ final class TravelApiController extends AbstractController
         // Fetching users participating in the travel
         $users = array_map(fn (UserTravel $userTravel) => $userTravel->getUser(), $travel->getUserTravel()->toArray());
 
-        $data = [];
-        foreach ($users as $user) {
+        $data = array_map(function (User $user) use ($userExpenseRepository, $travel) {
             $userExpenses = $userExpenseRepository->findByUserAndTravel($user, $travel);
 
             $totalDue = array_sum(array_map(function (UserExpense $userExpense) {
@@ -32,12 +32,12 @@ final class TravelApiController extends AbstractController
 
             $totalPaid = array_sum(array_map(fn (UserExpense $userExpense) => $userExpense->getPaidAmount(), $userExpenses));
 
-            $data[$user->getId()] = [
+            return [
                 'name' => $user->getPseudo(),
                 'email' => $user->getEmail(),
                 'balance' => $totalDue - $totalPaid,
             ];
-        }
+        }, $users);
 
         return $response->setData([
             'users' => $data,
