@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "name": "Voyage à Rome",
+    "budget": 1200,
+    "participant": [
+      { "id": 1, "name": "Alice" ,"budget": 896},
+      { "id": 2, "name": "Bob" ,"budget": 596},
+      { "id": 3, "name": "Charlie","budget": 8511 }
+    ],
+    "status" : "inProgress"
+  },
+  {
+    "id": 2,
+    "name": "Road Trip USA",
+    "budget": 10000,
+    "participant": [
+      { "id": 4, "name": "Emma" ,"budget": -2000
+      },
+      { "id": 5, "name": "Liam","budget": 12000 }
+    ],
+    "status" : "archive"
+  },
+  {
+    "id": 3,
+    "name": "Vacances au Japon",
+    "budget": 1000,
+    "participant": [
+      { "id": 6, "name": "Sakura" ,"budget": -200},
+      { "id": 7, "name": "Takeshi" ,"budget": 300},
+      { "id": 8, "name": "Kenji","budget": 300 },
+      { "id": 9, "name": "Miyu" ,"budget": 600}
+    ],
+    "status" : "inProgress"
+  }
+]
