@@ -8,21 +8,30 @@ use App\Repository\UserTravelRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
+#[ORM\UniqueConstraint(name: "user_travel_unique", columns: ["user_id", "travel_id"])]
 #[ORM\Entity(repositoryClass: UserTravelRepository::class)]
 class UserTravel
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
     #[ORM\ManyToOne(inversedBy: 'userTravel')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'userTravel')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Travel $travel = null;
 
     #[ORM\Column(enumType: UserStatus::class)]
     private ?UserStatus $status = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getUser(): ?User
     {
