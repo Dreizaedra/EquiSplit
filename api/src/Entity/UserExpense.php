@@ -8,15 +8,19 @@ use App\Repository\UserExpenseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
+#[ORM\UniqueConstraint(name: "user_expense_unique", columns: ["user_id", "expense_id"])]
 #[ORM\Entity(repositoryClass: UserExpenseRepository::class)]
 class UserExpense
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
     #[ORM\ManyToOne(inversedBy: 'userExpenses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'userExpenses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Expense $expense = null;
@@ -26,6 +30,11 @@ class UserExpense
 
     #[ORM\Column(enumType: UserStatus::class)]
     private ?UserStatus $status = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getUser(): ?User
     {
