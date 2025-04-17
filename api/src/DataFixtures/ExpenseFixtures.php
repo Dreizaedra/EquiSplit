@@ -12,16 +12,23 @@ class ExpenseFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $expense = new Expense();
-        $expense->setName('Test expense')
+        $expense1 = new Expense();
+        $expense1->setName('Test expense 1')
             ->setTravel($this->getReference('travel', Travel::class))
             ->setPrice(10000);
 
-        $manager->persist($expense);
+        $expense2 = new Expense();
+        $expense2->setName('Test expense 2')
+            ->setTravel($this->getReference('travel', Travel::class))
+            ->setPrice(20000);
+
+        $manager->persist($expense1);
+        $manager->persist($expense2);
 
         $manager->flush();
 
-        $this->setReference('expense', $expense);
+        $this->setReference('expense1', $expense1);
+        $this->setReference('expense2', $expense2);
     }
 
     public function getDependencies(): array

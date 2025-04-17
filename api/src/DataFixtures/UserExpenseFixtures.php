@@ -16,17 +16,24 @@ class UserExpenseFixtures extends Fixture implements DependentFixtureInterface
     {
         $userExpense1 = new UserExpense();
         $userExpense1->setUser($this->getReference('user1', User::class))
-            ->setExpense($this->getReference('expense', Expense::class))
+            ->setExpense($this->getReference('expense1', Expense::class))
             ->setStatus(UserStatus::ACCEPTED)
             ->setPaidAmount(10000);
 
         $userExpense2 = new UserExpense();
         $userExpense2->setUser($this->getReference('user2', User::class))
-            ->setExpense($this->getReference('expense', Expense::class))
+            ->setExpense($this->getReference('expense1', Expense::class))
             ->setStatus(UserStatus::ACCEPTED);
+
+        $userExpense3 = new UserExpense();
+        $userExpense3->setUser($this->getReference('user2', User::class))
+            ->setExpense($this->getReference('expense2', Expense::class))
+            ->setStatus(UserStatus::ACCEPTED)
+            ->setPaidAmount(20000);
 
         $manager->persist($userExpense1);
         $manager->persist($userExpense2);
+        $manager->persist($userExpense3);
 
         $manager->flush();
     }
